@@ -11,13 +11,16 @@ public class Student {
 
     private int manzil;
 
-    public Student(String name, String rollNo, int s_a, int e_a , int sabqi , int manzil) {
+    private String date;
+
+    public Student(String name, String rollNo, int s_a, int e_a , int sabqi , int manzil ,String date) {
         this.name = name;
         this.rollNo = rollNo;
         this.Ending_ayat = e_a;
         this.Starting_ayat = s_a;
         this.manzil = manzil;
         this.sabqi = sabqi;
+        this.date = date;
     }
 
     public String getName() {
@@ -76,6 +79,15 @@ public class Student {
         return manzil;
     }
 
+    public String getDate()
+    {
+        return date;
+    }
+
+    public void setDate(String Date)
+    {
+        this.date = Date;
+    }
     @Override
     public String toString() {
         return "Student name=" + name + ", rollNo=" + rollNo + ", Sabaq starting ayat =" + Starting_ayat + " Sabaq ending ayat+ " + Ending_ayat + " Sabqi : " + sabqi + " Manzi : " + manzil;

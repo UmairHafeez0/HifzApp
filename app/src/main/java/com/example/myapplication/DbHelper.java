@@ -16,17 +16,14 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "students.db";
     private static final String TABLE_NAME = "students";
 
-    private static final String COLUMN_SabqStaringAyat = "StartingAyat";
-
-    private static final String COLUMN_SabqEndingAyat = "EndingAyat";
-
-    private static final String COLUMN_Sabqi = "Sabqi";
-
-    private static final String COLUMN_Manzil = "Manzil";
-
-    private static final String COLUMN_Date = "Date";
+    private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_ROLLNO = "roll_no";
+    private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_MANZIL = "manzil";
+    private static final String COLUMN_SABQI = "sabqi";
+    private static final String COLUMN_SABQ_ENDING_AYAT = "ending_ayat";
+    private static final String COLUMN_SABQ_STARTING_AYAT = "starting_ayat";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -35,13 +32,14 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_NAME + " TEXT,"
                 + COLUMN_ROLLNO + " TEXT,"
-                + COLUMN_Date + " TEXT,"
-                + COLUMN_SabqEndingAyat + " INTEGER,"
-                + COLUMN_SabqStaringAyat + " INTEGER,"
-                + COLUMN_Sabqi + " INTEGER,"
-                + COLUMN_Manzil + " INTEGER"
+                + COLUMN_DATE + " TEXT,"
+                + COLUMN_MANZIL + " INTEGER,"
+                + COLUMN_SABQI + " INTEGER,"
+                + COLUMN_SABQ_ENDING_AYAT + " INTEGER,"
+                + COLUMN_SABQ_STARTING_AYAT + " INTEGER"
                 + ")";
         db.execSQL(sql);
     }
@@ -53,44 +51,42 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertStudent(Student student,String Date) {
+    public void insertStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, student.getName());
         values.put(COLUMN_ROLLNO, student.getRollNo());
-        values.put(COLUMN_Date, Date );
-        values.put(COLUMN_Manzil,student.getManzil());
-        values.put(COLUMN_Sabqi ,student.getSabqi());
-        values.put(COLUMN_SabqEndingAyat ,student.getEA());
-        values.put(COLUMN_SabqStaringAyat , student.getSA());
-
+        values.put(COLUMN_DATE, student.getDate());
+        values.put(COLUMN_MANZIL, student.getManzil());
+        values.put(COLUMN_SABQI, student.getSabqi());
+        values.put(COLUMN_SABQ_ENDING_AYAT, student.getEA());
+        values.put(COLUMN_SABQ_STARTING_AYAT, student.getSA());
 
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
-    public void updateStudent(Student student,int Date) {
+    public void updateStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, student.getName());
         values.put(COLUMN_ROLLNO, student.getRollNo());
-        values.put(COLUMN_Date, Date );
-        values.put(COLUMN_Manzil,student.getManzil());
-        values.put(COLUMN_Sabqi ,student.getSabqi());
-        values.put(COLUMN_SabqEndingAyat ,student.getEA());
-        values.put(COLUMN_SabqStaringAyat , student.getSA());
+        values.put(COLUMN_DATE, student.getDate());
+        values.put(COLUMN_MANZIL, student.getManzil());
+        values.put(COLUMN_SABQI, student.getSabqi());
+        values.put(COLUMN_SABQ_ENDING_AYAT, student.getEA());
+        values.put(COLUMN_SABQ_STARTING_AYAT, student.getSA());
 
-        db.update(TABLE_NAME, values, COLUMN_ROLLNO + " = ?", new String[] {student.getRollNo()});
+        db.update(TABLE_NAME, values, COLUMN_ROLLNO + " = ?", new String[]{student.getRollNo()});
         db.close();
     }
 
     public void deleteStudent(String rollNo) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, COLUMN_ROLLNO + " = ?", new String[] {rollNo});
+        db.delete(TABLE_NAME, COLUMN_ROLLNO + " = ?", new String[]{rollNo});
         db.close();
     }
-
 
     public List<Student> selectAllStudents() {
         List<Student> students = new ArrayList<>();
@@ -100,26 +96,28 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
-        /*
-        * if (cursorCourses.moveToFirst()) {
-            do {
+        int columnIndexId = cursor.getColumnIndex(COLUMN_ID);
+        int columnIndexName = cursor.getColumnIndex(COLUMN_NAME);
+        int columnIndexRollNo = cursor.getColumnIndex(COLUMN_ROLLNO);
+        int columnIndexDate = cursor.getColumnIndex(COLUMN_DATE);
+        int columnIndexManzil = cursor.getColumnIndex(COLUMN_MANZIL);
+        int columnIndexSabqi = cursor.getColumnIndex(COLUMN_SABQI);
+        int columnIndexEndingAyat = cursor.getColumnIndex(COLUMN_SABQ_ENDING_AYAT);
+        int columnIndexStartingAyat = cursor.getColumnIndex(COLUMN_SABQ_STARTING_AYAT);
 
-                studentArrayList.add(new StudentModel(cursorCourses.getString(1),
-                      cursorCourses.getInt(2),
-                        cursorCourses.getInt(3) == 1 ? true : false));
-            } while (cursorCourses.moveToNext());
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(columnIndexId);
+            String name = cursor.getString(columnIndexName);
+            String rollNo = cursor.getString(columnIndexRollNo);
+            String date = cursor.getString(columnIndexDate);
+            int manzil = cursor.getInt(columnIndexManzil);
+            int sabqi = cursor.getInt(columnIndexSabqi);
+            int endingAyat = cursor.getInt(columnIndexEndingAyat);
+            int startingAyat = cursor.getInt(columnIndexStartingAyat);
 
-        }
-        * */
+            Student student = new Student(name, rollNo,startingAyat,endingAyat,sabqi,manzil,date);
 
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                @SuppressLint("Range")  String rollNo = cursor.getString(cursor.getColumnIndex(COLUMN_ROLLNO));
-                @SuppressLint("Range") boolean isEnroll = cursor.getInt(cursor.getColumnIndex(COLUMN_ENROLL))>0;
-                students.add(new Student(name, rollNo, isEnroll));
-            } while (cursor.moveToNext());
+            students.add(student);
         }
 
         cursor.close();
@@ -127,4 +125,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return students;
     }
+
+
+
 }
