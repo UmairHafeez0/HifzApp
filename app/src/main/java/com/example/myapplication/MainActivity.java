@@ -14,12 +14,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnAddStudent = findViewById(R.id.btnAddStudent);
-        Button btnViewRecord = findViewById(R.id.btnViewRecord);
-        Button btnAddRecord = findViewById(R.id.btnAddRecord);
-        Button btnCommit = findViewById(R.id.btnCommit);
+        Button AddStudent = findViewById(R.id.AddStudent);
+        Button ViewRecord = findViewById(R.id.ViewRecord);
+        Button AddRecord = findViewById(R.id.AddRecord);
+        Button Commit = findViewById(R.id.Commit);
 
-        btnAddStudent.setOnClickListener(new View.OnClickListener() {
+        AddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnViewRecord.setOnClickListener(new View.OnClickListener() {
+        ViewRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnAddRecord.setOnClickListener(new View.OnClickListener() {
+        AddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnCommit.setOnClickListener(new View.OnClickListener() {
+        Commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

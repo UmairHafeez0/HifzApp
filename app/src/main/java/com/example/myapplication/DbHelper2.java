@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class DbHelper2 extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertStudent(Student student) {
+    public void insertStudent(Student student,Context context) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         if (isStudentExists(student.getId())) {
@@ -52,7 +53,15 @@ public class DbHelper2 extends SQLiteOpenHelper {
             values.put(COLUMN_NAME, student.getName());
             values.put(COLUMN_ROLLNO, student.getId());
 
-            db.insert(TABLE_NAME, null, values);
+           long newRowId= db.insert(TABLE_NAME, null, values);
+
+
+            if (newRowId != -1) {
+                Toast.makeText(context, "Data inserted successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to insert data", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         db.close();
@@ -67,7 +76,7 @@ public class DbHelper2 extends SQLiteOpenHelper {
         boolean exists = (cursor.getCount() > 0);
 
         cursor.close();
-        db.close();
+
 
         return exists;
     }
