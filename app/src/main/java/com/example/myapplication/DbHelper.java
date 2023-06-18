@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "students.db";
+    private static final String DATABASE_NAME = "student.db";
     private static final String TABLE_NAME = "studentsRecord";
 
     private static final String TABLE_NAME2 = "students";
