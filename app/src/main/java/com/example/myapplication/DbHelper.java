@@ -222,7 +222,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void insertStudent(Student student,Context context) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if (isStudentExists(student.getId())) {
+        if (isStudentExists(student.getId(),context)) {
 
             Toast.makeText(context, "Already Exist", Toast.LENGTH_SHORT).show();
         } else {
@@ -230,7 +230,7 @@ public class DbHelper extends SQLiteOpenHelper {
             values.put(COLUMN_NAME, student.getName());
             values.put(COLUMN_ROLLNO, student.getId());
 
-            long newRowId= db.insert(TABLE_NAME, null, values);
+            long newRowId= db.insert(TABLE_NAME2, null, values);
 
 
             if (newRowId != -1) {
@@ -252,7 +252,7 @@ public class DbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, student.getName());
 
-        db.update(TABLE_NAME, values, COLUMN_ROLLNO + " = ?", new String[]{student.getId()});
+        db.update(TABLE_NAME2, values, COLUMN_ROLLNO + " = ?", new String[]{student.getId()});
 
         db.close();
     }
@@ -265,7 +265,7 @@ public class DbHelper extends SQLiteOpenHelper {
         String selection = COLUMN_NAME + " LIKE ?";
         String[] selectionArgs = {"%" + searchQuery + "%"};
 
-        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME2, columns, selection, selectionArgs, null, null, null);
 
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(COLUMN_ID);
