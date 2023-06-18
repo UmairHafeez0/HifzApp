@@ -151,6 +151,50 @@ public class DbHelper extends SQLiteOpenHelper {
         return students;
     }
 
+    public List<StudentRecord> searchStudent(String rollNo) {
+        List<StudentRecord> students = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID, COLUMN_NAME, COLUMN_ROLLNO, COLUMN_DATE, COLUMN_MANZIL, COLUMN_SABQI, COLUMN_SABQ_ENDING_AYAT, COLUMN_SABQ_STARTING_AYAT};
+        String selection = COLUMN_ROLLNO + " = ?";
+        String[] selectionArgs = {rollNo};
+
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(COLUMN_ID);
+            int nameIndex = cursor.getColumnIndex(COLUMN_NAME);
+            int rollNoIndex = cursor.getColumnIndex(COLUMN_ROLLNO);
+            int dateIndex = cursor.getColumnIndex(COLUMN_DATE);
+            int manzilIndex = cursor.getColumnIndex(COLUMN_MANZIL);
+            int sabqiIndex = cursor.getColumnIndex(COLUMN_SABQI);
+            int endingAyatIndex = cursor.getColumnIndex(COLUMN_SABQ_ENDING_AYAT);
+            int startingAyatIndex = cursor.getColumnIndex(COLUMN_SABQ_STARTING_AYAT);
+
+            do {
+                int id = cursor.getInt(idIndex);
+                String name = cursor.getString(nameIndex);
+                String rollNoa = cursor.getString(rollNoIndex);
+                String date = cursor.getString(dateIndex);
+                int manzil = cursor.getInt(manzilIndex);
+                int sabqi = cursor.getInt(sabqiIndex);
+                int endingAyat = cursor.getInt(endingAyatIndex);
+                int startingAyat = cursor.getInt(startingAyatIndex);
+
+                StudentRecord student = new StudentRecord(name, rollNoa, startingAyat, endingAyat, sabqi, manzil, date);
+
+
+                students.add(student);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return students;
+    }
+
+
 
 
 }
