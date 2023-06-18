@@ -1,0 +1,161 @@
+<!-- item_student_record.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DATE:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_date_label"
+        app:layout_constraintTop_toTopOf="@id/text_date_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_date_label" />
+
+    <TextView
+        android:id="@+id/text_roll_no_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ROLL_NO:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/text_date_label"
+        app:layout_constraintTop_toBottomOf="@id/text_date_label"
+        app:layout_constraintTop_margin="16dp" />
+
+    <TextView
+        android:id="@+id/text_roll_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_roll_no_label"
+        app:layout_constraintTop_toTopOf="@id/text_roll_no_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_roll_no_label" />
+
+    <TextView
+        android:id="@+id/text_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NAME:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/text_roll_no_label"
+        app:layout_constraintTop_toBottomOf="@id/text_roll_no_label"
+        app:layout_constraintTop_margin="16dp" />
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_name_label"
+        app:layout_constraintTop_toTopOf="@id/text_name_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_name_label" />
+
+    <TextView
+        android:id="@+id/text_sabaq_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SABAQ:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/text_name_label"
+        app:layout_constraintTop_toBottomOf="@id/text_name_label"
+        app:layout_constraintTop_margin="16dp" />
+
+    <TextView
+        android:id="@+id/text_starting_ayat_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STARTING AYAT:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/text_sabaq_label"
+        app:layout_constraintTop_toBottomOf="@id/text_sabaq_label"
+        app:layout_constraintTop_margin="8dp" />
+
+    <TextView
+        android:id="@+id/text_ending_ayat_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENDING AYAT:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/text_starting_ayat_label"
+        app:layout_constraintTop_toBottomOf="@id/text_starting_ayat_label"
+        app:layout_constraintTop_margin="8dp" />
+
+    <TextView
+        android:id="@+id/text_sabqi_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SABQI:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/text_ending_ayat_label"
+        app:layout_constraintTop_toBottomOf="@id/text_ending_ayat_label"
+        app:layout_constraintTop_margin="8dp" />
+
+    <TextView
+        android:id="@+id/text_manzil_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MANZIL:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/text_sabqi_label"
+        app:layout_constraintTop_toBottomOf="@id/text_sabqi_label"
+        app:layout_constraintTop_margin="8dp" />
+
+    <TextView
+        android:id="@+id/text_sabaq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_sabaq_label"
+        app:layout_constraintTop_toTopOf="@id/text_sabaq_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_sabaq_label" />
+
+    <TextView
+        android:id="@+id/text_starting_ayat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_starting_ayat_label"
+        app:layout_constraintTop_toTopOf="@id/text_starting_ayat_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_starting_ayat_label" />
+
+    <TextView
+        android:id="@+id/text_ending_ayat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_ending_ayat_label"
+        app:layout_constraintTop_toTopOf="@id/text_ending_ayat_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_ending_ayat_label" />
+
+    <TextView
+        android:id="@+id/text_sabqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_sabqi_label"
+        app:layout_constraintTop_toTopOf="@id/text_sabqi_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_sabqi_label" />
+
+    <TextView
+        android:id="@+id/text_manzil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        app:layout_constraintStart_toEndOf="@id/text_manzil_label"
+        app:layout_constraintTop_toTopOf="@id/text_manzil_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_manzil_label" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
