@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start AddStudentActivity
+
                 Intent intent = new Intent(MainActivity.this, AddStudentActivity.class);
                 startActivity(intent);
             }
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btnViewRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start ViewRecordActivity
+
                 Intent intent = new Intent(MainActivity.this, ViewRecordActivity.class);
                 startActivity(intent);
             }
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start AddRecordActivity
+
                 Intent intent = new Intent(MainActivity.this, AddRecordActivity.class);
                 startActivity(intent);
             }
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         btnCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open a website URL
-                String url = "https://github.com/UmairHafeez0/HifzApp"; // Replace with your desired website URL
+
+                String url = "https://github.com/UmairHafeez0/HifzApp";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }
