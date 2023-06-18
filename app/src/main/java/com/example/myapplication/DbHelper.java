@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "student.db";
+    private static final String DATABASE_NAME = "studentbase.db";
     private static final String TABLE_NAME = "studentsRecord";
 
     private static final String TABLE_NAME2 = "students";
@@ -69,7 +69,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
 
-        if (!isStudentExists(student.getRollNo())) {
+        if (!isStudentExists(student.getRollNo(),context)) {
 
             Toast.makeText(context, "No student with Roll No: " + student.getRollNo() + " exists.", Toast.LENGTH_SHORT).show();
         } else {
@@ -89,7 +89,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    private boolean isStudentExists(String rollNo) {
+    private boolean isStudentExists(String rollNo,Context context) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COLUMN_ROLLNO + " = ?";
         String[] selectionArgs = {rollNo};
@@ -98,7 +98,12 @@ public class DbHelper extends SQLiteOpenHelper {
         boolean exists = (cursor.getCount() > 0);
 
         cursor.close();
-
+        if (exists == true) {
+            Toast.makeText(context, "exist", Toast.LENGTH_SHORT).show();
+        } else
+        {
+            Toast.makeText(context, "no exist", Toast.LENGTH_SHORT).show();
+        }
 
         return exists;
     }
@@ -219,7 +224,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         if (isStudentExists(student.getId())) {
 
-            updateStudent(student);
+            Toast.makeText(context, "Already Exist", Toast.LENGTH_SHORT).show();
         } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_NAME, student.getName());

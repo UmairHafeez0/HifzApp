@@ -30,7 +30,7 @@ public class AddStudentActivity extends AppCompatActivity {
 
                 Student student = new Student(name, id);
 
-                DbHelper2 db = new DbHelper2(AddStudentActivity.this);
+                DbHelper db = new DbHelper(AddStudentActivity.this);
                 db.insertStudent(student, AddStudentActivity.this);
 
                 finish();
