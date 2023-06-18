@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Student ID"
-        android:inputType="number" />
+         />
 
     <TextView
         android:layout_width="match_parent"
@@ -35,14 +35,16 @@
         android:id="@+id/etStartingAyat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Starting Ayat" />
+        android:hint="Starting Ayat"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/etEndingAyat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ending Ayat"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:inputType="number" />
 
     <TextView
         android:layout_width="match_parent"
@@ -57,7 +59,8 @@
         android:id="@+id/etSabqi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Sabqi" />
+        android:hint="Sabqi"
+        android:inputType="number" />
 
     <TextView
         android:layout_width="match_parent"
@@ -72,7 +75,8 @@
         android:id="@+id/etMazil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mazil" />
+        android:hint="Mazil"
+        android:inputType="number" />
 
     <TextView
         android:layout_width="match_parent"

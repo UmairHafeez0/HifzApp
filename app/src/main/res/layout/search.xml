@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Enter Roll Number"
-        android:inputType="number" />
+  />
 
     <Button
         android:id="@+id/buttonSearch"
