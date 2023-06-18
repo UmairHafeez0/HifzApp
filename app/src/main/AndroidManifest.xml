@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddStudentActivity" />
-
+        <activity android:name=".AddRecordActivity" />
     </application>
 
 </manifest>

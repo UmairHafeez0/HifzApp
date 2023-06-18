@@ -1,4 +1,50 @@
 package com.example.myapplication;
 
-public class AddRecordActivity {
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class AddRecordActivity extends AppCompatActivity {
+
+    private EditText etStudentId, etStartingAyat, etEndingAyat, etSabqi, etMazil, etDate;
+    private Button AddRecord;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.addrecord);
+
+        etStudentId = findViewById(R.id.etStudentId);
+        etStartingAyat = findViewById(R.id.etStartingAyat);
+        etEndingAyat = findViewById(R.id.etEndingAyat);
+        etSabqi = findViewById(R.id.etSabqi);
+        etMazil = findViewById(R.id.etMazil);
+        etDate = findViewById(R.id.etDate);
+        AddRecord = findViewById(R.id.AddRecord);
+
+        AddRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String studentId = etStudentId.getText().toString().trim();
+                String startingAyat = etStartingAyat.getText().toString().trim();
+                String endingAyat = etEndingAyat.getText().toString().trim();
+                String sabqi = etSabqi.getText().toString().trim();
+                String mazil = etMazil.getText().toString().trim();
+                String date = etDate.getText().toString().trim();
+
+                StudentRecord studentRecord = new StudentRecord("John Doe", studentId, Integer.parseInt(startingAyat),
+                        Integer.parseInt(endingAyat), Integer.parseInt(sabqi), Integer.parseInt(mazil), date);
+
+                DbHelper dbHelper = new DbHelper(AddRecordActivity.this);
+                dbHelper.insertStudent(studentRecord,AddRecordActivity.this);
+                Toast.makeText(AddRecordActivity.this, "Record added successfully", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        });
+    }
 }
