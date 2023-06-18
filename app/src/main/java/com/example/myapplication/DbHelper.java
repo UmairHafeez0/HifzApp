@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,10 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "studentRecord.db";
-    private static final String TABLE_NAME = "students";
+    private static final String DATABASE_NAME = "students.db";
+    private static final String TABLE_NAME = "studentsRecord";
+
+    private static final String TABLE_NAME2 = "students";
 
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
@@ -51,20 +54,42 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertStudent(StudentRecord student) {
+    public void insertStudent(StudentRecord student, Context context) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, student.getName());
-        values.put(COLUMN_ROLLNO, student.getRollNo());
-        values.put(COLUMN_DATE, student.getDate());
-        values.put(COLUMN_MANZIL, student.getManzil());
-        values.put(COLUMN_SABQI, student.getSabqi());
-        values.put(COLUMN_SABQ_ENDING_AYAT, student.getEA());
-        values.put(COLUMN_SABQ_STARTING_AYAT, student.getSA());
 
-        db.insert(TABLE_NAME, null, values);
+        if (!isStudentExists(student.getRollNo())) {
+
+            Toast.makeText(context, "No student with Roll No: " + student.getRollNo() + " exists.", Toast.LENGTH_SHORT).show();
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME, student.getName());
+            values.put(COLUMN_ROLLNO, student.getRollNo());
+            values.put(COLUMN_DATE, student.getDate());
+            values.put(COLUMN_MANZIL, student.getManzil());
+            values.put(COLUMN_SABQI, student.getSabqi());
+            values.put(COLUMN_SABQ_ENDING_AYAT, student.getEA());
+            values.put(COLUMN_SABQ_STARTING_AYAT, student.getSA());
+
+            db.insert(TABLE_NAME, null, values);
+            Toast.makeText(context, "Student Record added successfully", Toast.LENGTH_SHORT).show();
+        }
+
         db.close();
+    }
+
+    private boolean isStudentExists(String rollNo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_ROLLNO + " = ?";
+        String[] selectionArgs = {rollNo};
+
+        Cursor cursor = db.query(TABLE_NAME2, null, selection, selectionArgs, null, null, null);
+        boolean exists = (cursor.getCount() > 0);
+
+        cursor.close();
+
+
+        return exists;
     }
 
     public void updateStudent(StudentRecord student) {
