@@ -28,6 +28,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String COLUMN_SABQ_ENDING_AYAT = "ending_ayat";
     private static final String COLUMN_SABQ_STARTING_AYAT = "starting_ayat";
 
+
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -45,13 +46,23 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_SABQ_STARTING_AYAT + " INTEGER"
                 + ")";
         db.execSQL(sql);
+
+        String sql2 = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME2 + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_NAME + " TEXT,"
+                + COLUMN_ROLLNO + " TEXT"
+                + ")";
+        db.execSQL(sql2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sql = "DROP TABLE IF EXISTS " + TABLE_NAME;
         db.execSQL(sql);
+        String sql2 = "DROP TABLE IF EXISTS " + TABLE_NAME2;
+        db.execSQL(sql2);
         onCreate(db);
+
     }
 
     public void insertStudent(StudentRecord student, Context context) {
@@ -183,6 +194,86 @@ public class DbHelper extends SQLiteOpenHelper {
 
                 StudentRecord student = new StudentRecord(name, rollNoa, startingAyat, endingAyat, sabqi, manzil, date);
 
+
+                students.add(student);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return students;
+    }
+
+
+
+
+
+
+
+
+
+
+    public void insertStudent(Student student,Context context) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if (isStudentExists(student.getId())) {
+
+            updateStudent(student);
+        } else {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_NAME, student.getName());
+            values.put(COLUMN_ROLLNO, student.getId());
+
+            long newRowId= db.insert(TABLE_NAME, null, values);
+
+
+            if (newRowId != -1) {
+                Toast.makeText(context, "Data inserted successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to insert data", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        db.close();
+    }
+
+
+
+    public void updateStudent(Student student) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, student.getName());
+
+        db.update(TABLE_NAME, values, COLUMN_ROLLNO + " = ?", new String[]{student.getId()});
+
+        db.close();
+    }
+
+    public List<Student> searchStudents(String searchQuery) {
+        List<Student> students = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID, COLUMN_NAME, COLUMN_ROLLNO};
+        String selection = COLUMN_NAME + " LIKE ?";
+        String[] selectionArgs = {"%" + searchQuery + "%"};
+
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(COLUMN_ID);
+            int nameIndex = cursor.getColumnIndex(COLUMN_NAME);
+            int rollNoIndex = cursor.getColumnIndex(COLUMN_ROLLNO);
+
+            do {
+                int id = cursor.getInt(idIndex);
+                String name = cursor.getString(nameIndex);
+                String rollNo = cursor.getString(rollNoIndex);
+
+                Student student = new Student(name, rollNo);
+                student.setId(String.valueOf(id));
 
                 students.add(student);
             } while (cursor.moveToNext());
