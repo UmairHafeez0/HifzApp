@@ -51,7 +51,7 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertStudent(Student student) {
+    public void insertStudent(StudentRecord student) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -67,7 +67,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateStudent(Student student) {
+    public void updateStudent(StudentRecord student) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, student.getName());
@@ -88,8 +88,8 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Student> selectAllStudents() {
-        List<Student> students = new ArrayList<>();
+    public List<StudentRecord> selectAllStudents() {
+        List<StudentRecord> students = new ArrayList<>();
 
         String sql = "SELECT * FROM " + TABLE_NAME;
 
@@ -115,7 +115,7 @@ public class DbHelper extends SQLiteOpenHelper {
             int endingAyat = cursor.getInt(columnIndexEndingAyat);
             int startingAyat = cursor.getInt(columnIndexStartingAyat);
 
-            Student student = new Student(name, rollNo,startingAyat,endingAyat,sabqi,manzil,date);
+            StudentRecord student = new StudentRecord(name, rollNo,startingAyat,endingAyat,sabqi,manzil,date);
 
             students.add(student);
         }
