@@ -28,7 +28,7 @@ public class ViewRecordActivity extends AppCompatActivity {
 
         friendsList = dbHelper.searchStudent(rollNo);
 
-        recyclerView = findViewById(R.id.recylerViewStudent);
+        recyclerView = findViewById(R.id.recyclerViewStudent);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(ViewRecordActivity.this);

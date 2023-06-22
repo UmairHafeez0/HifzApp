@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "studentbase.db";
+    private static final String DATABASE_NAME = "studentbas3e.db";
     private static final String TABLE_NAME = "studentsRecord";
 
     private static final String TABLE_NAME2 = "students";
@@ -213,6 +213,27 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
 
+
+    public String getNameByRollNumber(String rollNumber, Context context) {
+        String name = ""; // Default value if the name is not found
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {COLUMN_NAME};
+        String selection = COLUMN_ROLLNO + " = ?";
+        String[] selectionArgs = {rollNumber};
+
+        Cursor cursor = db.query(TABLE_NAME2, projection, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+        }
+
+        cursor.close();
+        db.close();
+
+        return name;
+    }
 
 
 

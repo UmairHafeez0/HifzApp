@@ -29,6 +29,7 @@ public class AddRecordActivity extends AppCompatActivity {
         AddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DbHelper dbHelper = new DbHelper(AddRecordActivity.this);
                 String studentId = etStudentId.getText().toString().trim();
                 String startingAyat = etStartingAyat.getText().toString().trim();
                 String endingAyat = etEndingAyat.getText().toString().trim();
@@ -36,14 +37,23 @@ public class AddRecordActivity extends AppCompatActivity {
                 String mazil = etMazil.getText().toString().trim();
                 String date = etDate.getText().toString().trim();
 
-                StudentRecord studentRecord = new StudentRecord("John Doe", studentId, Integer.parseInt(startingAyat),
-                        Integer.parseInt(endingAyat), Integer.parseInt(sabqi), Integer.parseInt(mazil), date);
+                int sa = Integer.parseInt(startingAyat);
+                int ea =Integer.parseInt(endingAyat);
+                if(sa < ea) {
+                    String name = dbHelper.getNameByRollNumber(studentId, AddRecordActivity.this);
+                    StudentRecord studentRecord = new StudentRecord(name, studentId, Integer.parseInt(startingAyat),
+                            Integer.parseInt(endingAyat), Integer.parseInt(sabqi), Integer.parseInt(mazil), date);
 
-                DbHelper dbHelper = new DbHelper(AddRecordActivity.this);
-                dbHelper.insertStudent(studentRecord,AddRecordActivity.this);
-                Toast.makeText(AddRecordActivity.this, "Record added successfully", Toast.LENGTH_SHORT).show();
+                    dbHelper.insertStudent(studentRecord, AddRecordActivity.this);
+                    Toast.makeText(AddRecordActivity.this, "Record added successfully", Toast.LENGTH_SHORT).show();
 
-                finish();
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(AddRecordActivity.this, "Starting ayat can not be greater than ending ayat", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
